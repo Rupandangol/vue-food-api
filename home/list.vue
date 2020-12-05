@@ -20,92 +20,20 @@
       <text class="list-header">List of Food</text>
     </view>
 
-
     <view class="list-block">
-      <!-- <flat-list
-        :data="[{ key: 'a' }, { key: 'b' }]"
-        :render-item="(item) => renderList(item)"
-      /> -->
-      <view class="food">
-        <view class="food-image">
-          <image
-            :style="{ width: 40, height: 40, borderRadius: 4 }"
-            :source="{
-              uri:
-                'https://facebook.github.io/react-native/docs/assets/favicon.png',
-            }"
-          />
-        </view>
-        <view class="food-name">
-          <text :style="{ fontSize: 15, marginTop: 6 }">Apple</text>
-        </view>
-      </view>
-      <text class="nutrient" :style="{ fontSize: 15, marginTop: 6 }"
-        >Nutrient</text
+      <flat-list
+        :style="{
+          height: 200,
+          width: 200,
+          overflow: 'hidden',
+        }"
+        :data="[{ key: 'a' }, { key: 'b' }, { key: '2' }, { key: '3' }]"
       >
-      <view :style="{ fontSize: 10, marginTop: 2 }">
-        <touchable-opacity :on-press="onPressButton">
-          <text class="learn-more-btn" >Learn more </text>
-        </touchable-opacity>
-      </view>
+        <view render-prop-fn="renderItem">
+          <HomeListBlock />
+        </view>
+      </flat-list>
     </view>
-     <view class="list-block">
-      <!-- <flat-list
-        :data="[{ key: 'a' }, { key: 'b' }]"
-        :render-item="(item) => renderList(item)"
-      /> -->
-      <view class="food">
-        <view class="food-image">
-          <image
-            :style="{ width: 40, height: 40, borderRadius: 4 }"
-            :source="{
-              uri:
-                'https://facebook.github.io/react-native/docs/assets/favicon.png',
-            }"
-          />
-        </view>
-        <view class="food-name">
-          <text :style="{ fontSize: 15, marginTop: 6 }">Apple</text>
-        </view>
-      </view>
-      <text class="nutrient" :style="{ fontSize: 15, marginTop: 6 }"
-        >Nutrient</text
-      >
-      <view :style="{ fontSize: 10, marginTop: 2 }">
-        <touchable-opacity :on-press="onPressButton">
-          <text class="learn-more-btn" >Learn more </text>
-        </touchable-opacity>
-      </view>
-    </view>
-     <view class="list-block">
-      <!-- <flat-list
-        :data="[{ key: 'a' }, { key: 'b' }]"
-        :render-item="(item) => renderList(item)"
-      /> -->
-      <view class="food">
-        <view class="food-image">
-          <image
-            :style="{ width: 40, height: 40, borderRadius: 4 }"
-            :source="{
-              uri:
-                'https://facebook.github.io/react-native/docs/assets/favicon.png',
-            }"
-          />
-        </view>
-        <view class="food-name">
-          <text :style="{ fontSize: 15, marginTop: 6 }">Apple</text>
-        </view>
-      </view>
-      <text class="nutrient" :style="{ fontSize: 15, marginTop: 6 }"
-        >Nutrient</text
-      >
-      <view :style="{ fontSize: 10, marginTop: 2 }">
-        <touchable-opacity :on-press="onPressButton">
-          <text class="learn-more-btn" >Learn more </text>
-        </touchable-opacity>
-      </view>
-    </view>
-
   </view>
 </template>
 
@@ -146,19 +74,23 @@
 .food-image {
   margin-right: 4;
 }
-.learn-more-btn{
-  background-color: #dfad25; 
+.learn-more-btn {
+  background-color: #dfad25;
   color: white;
   padding: 5;
-  border-radius:20;
+  border-radius: 20;
 }
 </style>
 
 <script>
 import React from "react";
-import { Text } from "react-native";
+import { Text, Flatlist } from "react-native";
+import HomeListBlock from "./listBlock";
+
 export default {
-  components: {},
+  components: {
+    HomeListBlock,
+  },
   data: function () {
     return {
       isLoading: "true",
