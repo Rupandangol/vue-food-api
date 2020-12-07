@@ -21,18 +21,18 @@
     </view>
 
     <view class="list-block">
+      <view v-if="isLoading" :style="{ flex: 1, justifyContent: 'center' }">
+        <activity-indicator size="large" color="#0000ff" />
+      </view>
       <flat-list
+        :data="listItem"
         :style="{
           height: 200,
           width: 200,
           overflow: 'hidden',
         }"
-        :data="[{ key: 'a' }, { key: 'b' }, { key: '2' }, { key: '3' }]"
-      >
-        <view render-prop-fn="renderItem">
-          <HomeListBlock />
-        </view>
-      </flat-list>
+        :render-item="(item) => renderList(item)"
+      />
     </view>
   </view>
 </template>
@@ -91,19 +91,39 @@ export default {
   components: {
     HomeListBlock,
   },
+  mounted() {
+    this.LoadListItem();
+  },
   data: function () {
     return {
-      isLoading: "true",
+      isLoading: true,
       text: "",
+      api_key:'your api key',
+      listItem: [],
     };
   },
   methods: {
     renderList: function (item) {
-      return <Text>{item.item.key}</Text>;
+      return <HomeListBlock myItem={item.item} />;
     },
     onPressButton: function () {
       alert("Clicked");
     },
+    LoadListItem: function () {
+      fetch(`https://rest-food-api.herokuapp.com/api/food/brief?secret=${this.api_key}`)
+        .then((res) => {
+          return res.json();
+        })
+        .then(this.setListItem)
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    setListItem(results) {
+      this.isLoading=false;
+      this.listItem = results;
+    },
   },
 };
 </script>
+
