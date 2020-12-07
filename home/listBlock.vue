@@ -11,12 +11,11 @@
         />
       </view>
       <view class="food-name">
-        <text :style="{ fontSize: 15, marginTop: 6 }">Apple</text>
+        <text :style="{ fontSize: 15, marginTop: 6 }">{{ myItem.name }}</text>
       </view>
     </view>
-    <text class="nutrient" :style="{ fontSize: 15, marginTop: 6 }"
-      >Nutrient</text
-    >
+    <!-- <text class="nutrient" :style="{ fontSize: 15, marginTop: 6 }"
+      >{{myItem.food_nutrition[0].nutrition.title}} ({{myItem.food_nutrition[0].amount + ' '+ myItem.food_nutrition[0].unit}})</text> -->
     <view :style="{ fontSize: 10, marginTop: 2 }">
       <touchable-opacity :on-press="onPressButton">
         <text class="learn-more-btn">Learn more </text>
@@ -27,10 +26,7 @@
 
 
 <style lang="stylus">
-
-
 .list-block {
-  /* background-color: aqua; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -41,19 +37,26 @@
   display: flex;
   flex-direction: row;
 }
+
 .food-image {
   margin-right: 4;
 }
+
 .learn-more-btn {
   background-color: #dfad25;
   color: white;
   padding: 5;
   border-radius: 20;
-}   
+}
 </style>
 
 <script>
 export default {
+  props: {
+    myItem: {
+      type: Object,
+    },
+  },
   components: {},
 
   methods: {

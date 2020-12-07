@@ -1,17 +1,19 @@
 <template>
   <view class="card-container">
     <view class="card-header-block">
+      <view v-if="isLoading" :style="{ flex: 1, justifyContent: 'center' }">
+        <activity-indicator size="large" color="#0000ff" />
+      </view>
       <view class="card-image">
         <image
           :style="{ width: 100, height: 70, borderRadius: 4 }"
           :source="{
-            uri:
-              'https://facebook.github.io/react-native/docs/assets/favicon.png',
+            uri: `https://spoonacular.com/cdn/ingredients_100x100/${foodOfTheDay.image}`,
           }"
         />
       </view>
       <view class="">
-        <text class="card-header"> Food of The Day </text>
+        <text class="card-header"> {{ foodOfTheDay.name }} </text>
       </view>
     </view>
 
@@ -38,10 +40,37 @@
 <script>
 export default {
   components: {},
-
+  mounted() {
+    this.LoadFoodOfTheDay();
+  },
+  data: function () {
+    return {
+      api_key:'your api key',
+      isLoading: true,
+      foodOfTheDay: [],
+    };
+  },
   methods: {
     onPressButton: function () {
       alert("clicked");
+    },
+
+    LoadFoodOfTheDay: function () {
+      fetch(
+        `http://rest-food-api.herokuapp.com/api/food/brief-paginate/highlight/?page_size=1&secret=${this.api_key}`
+      )
+        .then((res) => {
+          // this.foodOfTheDay= res.json();
+          return res.json();
+        })
+        .then(this.setFoodOfTheDay)
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    setFoodOfTheDay(results) {
+      this.isLoading=false;
+      this.foodOfTheDay = results;
     },
   },
 };
