@@ -12,6 +12,15 @@
     />
   </view> -->
   <view class="container">
+    <nb-container>
+      <nb-header>
+        <nb-left />
+        <nb-body>
+          <nb-title>Header</nb-title>
+        </nb-body>
+        <nb-right />
+      </nb-header>
+    </nb-container>
     <HomeCard />
     <HomeList />
   </view>
@@ -22,7 +31,6 @@
   margin: 0;
   padding: 0;
 }
-
 </style>
 
 <script>
@@ -42,5 +50,3 @@ export default {
   },
 };
 </script>
-
-
